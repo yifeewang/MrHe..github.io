@@ -1,11 +1,14 @@
 <template>
-    <div class="wraper">
-        二维码已过期，请重新生成！
+    <div class="wraper" v-loading="loading">
+        <div v-if="showExpires">二维码已过期，请重新生成！</div>
     </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { ElMessage } from 'element-plus'
+const showExpires = ref(false);
+const loading = ref(true);
 function getQueryParams(url) {
   const urlObj = new URL(url);
   const searchParams = urlObj.searchParams;
@@ -27,8 +30,11 @@ async function judgeExpiringQrCode() {
             message: '二维码已过期，请重新生成！',
             type: 'warning',
         })
+        showExpires.value = true;
+        loading.value = false;
         return;
     }
+    loading.value = false;
     window.location.href = qrCodeUrl;
 }
 judgeExpiringQrCode();
