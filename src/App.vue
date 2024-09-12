@@ -1,6 +1,6 @@
 <template>
     <div class="wraper" v-loading="loading">
-        <div v-if="showExpires">二维码已过期，请重新生成！</div>
+        <div v-if="showExpires">二维码已过期，请重新生成！!</div>
     </div>
 </template>
 
